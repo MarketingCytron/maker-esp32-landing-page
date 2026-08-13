@@ -1,0 +1,1459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta -->
+    <title>Maker ESP32 — Beginner-Friendly ESP32 Board | Cytron Technologies</title>
+    <meta name="description" content="Maker ESP32 is a beginner-friendly, NodeMCU-compatible ESP32 board with 14 GPIO LEDs, USB-C, and automatic upload — built for first-time ESP32 learners. 20% off, 16–29 Sep.">
+
+    <!-- Fonts: Using Inter for body and Oswald (bold italic) for headlines -->
+    <!-- DEVELOPER NOTE: Replace with your brand fonts if different -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Oswald:ital,wght@0,700;1,700&family=Caveat:wght@700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           CSS CUSTOM PROPERTIES (Easy to edit)
+           ============================================ */
+        :root {
+            /* Primary palette - Deep indigo/purple */
+            --color-primary: #1a1a3e;        /* Deep indigo - main background */
+            --color-primary-light: #2d2d5a;  /* Lighter indigo for cards */
+            --color-primary-dark: #0f0f24;   /* Darker shade for footer */
+            --color-accent: #7c3aed;         /* Vibrant purple accent */
+            --color-accent-light: #a78bfa;   /* Light purple for hovers */
+            --color-accent-glow: rgba(124, 58, 237, 0.3); /* Glow effect */
+
+            /* Text colors */
+            --color-text: #ffffff;
+            --color-text-muted: #a5a5c0;
+            --color-text-dark: #1a1a3e;
+
+            /* CTA colors */
+            --color-cta: #22c55e;            /* Green for primary CTA */
+            --color-cta-hover: #16a34a;
+
+            /* Circuit accent color */
+            --color-circuit: rgba(124, 58, 237, 0.4);
+
+            /* Spacing */
+            --section-padding: 4rem 1.5rem;
+            --container-max: 1200px;
+
+            /* Typography */
+            --font-headline: 'Oswald', sans-serif;
+            --font-script: 'Caveat', cursive;  /* Brush script for product name */
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* ============================================
+           RESET & BASE STYLES
+           ============================================ */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        a {
+            color: var(--color-accent-light);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--color-accent);
+        }
+
+        /* ============================================
+           LAYOUT UTILITIES
+           ============================================ */
+        .container {
+            max-width: var(--container-max);
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        .section {
+            padding: var(--section-padding);
+        }
+
+        /* ============================================
+           TYPOGRAPHY
+           ============================================ */
+        .headline {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-style: italic;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .headline--xl {
+            font-size: clamp(2rem, 6vw, 3.5rem);
+        }
+
+        .headline--lg {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+        }
+
+        .headline--md {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+        }
+
+        /* Brush script treatment for product name */
+        .product-name-script {
+            font-family: var(--font-script);
+            font-size: 1.2em;
+            color: var(--color-accent-light);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header .headline {
+            margin-bottom: 1rem;
+        }
+
+        /* ============================================
+           CIRCUIT LINE DECORATIONS
+           ============================================ */
+        .circuit-corner {
+            position: relative;
+        }
+
+        .circuit-corner::before,
+        .circuit-corner::after {
+            content: '';
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--color-circuit);
+            pointer-events: none;
+        }
+
+        .circuit-corner::before {
+            top: -10px;
+            left: -10px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .circuit-corner::after {
+            bottom: -10px;
+            right: -10px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Circuit dot decoration */
+        .circuit-corner::before {
+            background: radial-gradient(circle at 0 0, var(--color-accent) 3px, transparent 3px);
+        }
+
+        .circuit-corner::after {
+            background: radial-gradient(circle at 100% 100%, var(--color-accent) 3px, transparent 3px);
+        }
+
+        /* ============================================
+           BUTTONS
+           ============================================ */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn--primary {
+            background: var(--color-cta);
+            color: white;
+            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+        }
+
+        .btn--primary:hover {
+            background: var(--color-cta-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(34, 197, 94, 0.4);
+            color: white;
+        }
+
+        .btn--secondary {
+            background: transparent;
+            color: var(--color-text);
+            border: 2px solid var(--color-accent);
+        }
+
+        .btn--secondary:hover {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* ============================================
+           HEADER / LOGO BADGE
+           ============================================ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+            background: linear-gradient(to bottom, var(--color-primary-dark), transparent);
+        }
+
+        .header__logo {
+            /* DEVELOPER NOTE: Replace src with actual logo path */
+            width: 120px;
+            height: auto;
+        }
+
+        /* ============================================
+           HERO SECTION
+           ============================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 6rem 1.5rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Gradient background overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 0%, var(--color-accent-glow) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .hero__content {
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+        }
+
+        .hero__headline {
+            margin-bottom: 1.5rem;
+        }
+
+        .hero__subheadline {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+            max-width: 500px;
+        }
+
+        .hero__cta {
+            margin-bottom: 3rem;
+        }
+
+        /* Hero Product Image */
+        .hero__product-wrapper {
+            position: relative;
+            flex: 1;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Circuit line background pattern */
+        .hero__product-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -30%;
+            width: 140%;
+            height: 140%;
+            background-image:
+                linear-gradient(90deg, var(--color-circuit) 1px, transparent 1px),
+                linear-gradient(var(--color-circuit) 1px, transparent 1px),
+                radial-gradient(circle, var(--color-accent) 2px, transparent 2px);
+            background-size: 40px 40px, 40px 40px, 80px 80px;
+            background-position: 0 0, 0 0, 20px 20px;
+            opacity: 0.5;
+            pointer-events: none;
+            transform: rotate(-15deg);
+        }
+
+        .hero__product-image {
+            position: relative;
+            z-index: 1;
+            max-width: 450px;
+            width: 100%;
+            transform: rotate(12deg) translateX(15%);
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.4));
+            transition: transform 0.3s ease;
+        }
+
+        .hero__product-image:hover {
+            transform: rotate(8deg) translateX(15%) scale(1.02);
+        }
+
+        /* Glow effect behind image */
+        .hero__product-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            right: 0;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 70%);
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.02); }
+        }
+
+        /* Desktop hero layout */
+        @media (min-width: 768px) {
+            .hero {
+                flex-direction: row;
+                align-items: center;
+                gap: 2rem;
+                padding: 8rem 4rem;
+                overflow: hidden;
+            }
+
+            .hero__content {
+                flex: 1;
+                z-index: 2;
+            }
+
+            .hero__product-wrapper {
+                flex: 1.2;
+                min-height: 400px;
+                margin-right: -100px;
+            }
+
+            .hero__product-image {
+                max-width: 550px;
+                transform: rotate(12deg) translateX(20%);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero__product-wrapper {
+                margin-right: -150px;
+            }
+
+            .hero__product-image {
+                max-width: 600px;
+                transform: rotate(12deg) translateX(25%);
+            }
+        }
+
+        /* ============================================
+           PROBLEM SECTION
+           ============================================ */
+        .problem {
+            background: var(--color-primary-dark);
+            text-align: center;
+        }
+
+        .problem__body {
+            font-size: 1.125rem;
+            color: var(--color-text-muted);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           THREE PILLARS SECTION
+           ============================================ */
+        .pillars__grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .pillars__grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        .pillar-card {
+            background: var(--color-primary-light);
+            border-radius: 16px;
+            padding: 2rem;
+            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 40px var(--color-accent-glow);
+        }
+
+        .pillar-card__icon {
+            width: 48px;
+            height: 48px;
+            background: var(--color-accent);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .pillar-card__title {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .pillar-card__body {
+            color: var(--color-text-muted);
+        }
+
+        .pillar-card__list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .pillar-card__list li {
+            position: relative;
+            padding-left: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .pillar-card__list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .pillar-card__list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 6px;
+            height: 6px;
+            background: var(--color-accent);
+            border-radius: 50%;
+        }
+
+        /* ============================================
+           COMPARISON TABLE SECTION
+           ============================================ */
+        .comparison {
+            background: var(--color-primary-dark);
+        }
+
+        .comparison__table-wrapper {
+            overflow-x: auto;
+            margin-bottom: 2rem;
+        }
+
+        .comparison__table {
+            width: 100%;
+            min-width: 500px;
+            border-collapse: collapse;
+            background: var(--color-primary-light);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .comparison__table th,
+        .comparison__table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-primary);
+        }
+
+        .comparison__table th {
+            background: var(--color-accent);
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        .comparison__table th:first-child {
+            background: var(--color-primary-dark);
+        }
+
+        /* Highlight Maker ESP32 column */
+        .comparison__table td:nth-child(2) {
+            background: rgba(124, 58, 237, 0.1);
+        }
+
+        .comparison__table tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Checkmark and X styling */
+        .check {
+            color: var(--color-cta);
+            font-weight: bold;
+        }
+
+        .no-check {
+            color: #ef4444;
+        }
+
+        .comparison__summary {
+            text-align: center;
+            color: var(--color-text-muted);
+            font-size: 1rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* ============================================
+           HOW IT WORKS SECTION
+           ============================================ */
+        .how-it-works__steps {
+            display: grid;
+            gap: 2rem;
+            counter-reset: step;
+        }
+
+        @media (min-width: 768px) {
+            .how-it-works__steps {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .step {
+            text-align: center;
+            position: relative;
+        }
+
+        .step__number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-family: var(--font-headline);
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .step__title {
+            font-family: var(--font-headline);
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .step__body {
+            color: var(--color-text-muted);
+        }
+
+        .how-it-works__support {
+            text-align: center;
+            margin-top: 3rem;
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================
+           PRICING SECTION
+           ============================================ */
+        .pricing {
+            background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+            text-align: center;
+        }
+
+        .pricing__card {
+            background: var(--color-primary-light);
+            border: 2px solid var(--color-accent);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            max-width: 500px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decorative glow */
+        .pricing__card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .pricing__price {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing__old-price {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            text-decoration: line-through;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing__new-price {
+            font-family: var(--font-headline);
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-cta);
+        }
+
+        .pricing__note {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* Countdown Timer */
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .countdown__item {
+            text-align: center;
+        }
+
+        .countdown__value {
+            display: block;
+            font-family: var(--font-headline);
+            font-size: 2rem;
+            font-weight: 700;
+            background: var(--color-primary-dark);
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            min-width: 60px;
+        }
+
+        .countdown__label {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            margin-top: 0.5rem;
+        }
+
+        /* Hide pricing section when not in launch window */
+        .pricing--hidden {
+            display: none;
+        }
+
+        /* ============================================
+           PRODUCT IMAGE SECTION
+           ============================================ */
+        .product-showcase {
+            text-align: center;
+            padding: 4rem 1.5rem;
+        }
+
+        .product-showcase__image {
+            max-width: 400px;
+            margin: 0 auto;
+            /* 3/4 diagonal angle is in the actual photo */
+        }
+
+        /* ============================================
+           FAQ SECTION
+           ============================================ */
+        .faq {
+            background: var(--color-primary-dark);
+        }
+
+        .faq__list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq__item {
+            border-bottom: 1px solid var(--color-primary-light);
+        }
+
+        .faq__question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 1.5rem 0;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .faq__question:hover {
+            color: var(--color-accent-light);
+        }
+
+        .faq__icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            flex-shrink: 0;
+        }
+
+        .faq__item.active .faq__icon {
+            transform: rotate(45deg);
+        }
+
+        .faq__answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+        }
+
+        .faq__item.active .faq__answer {
+            max-height: 500px;
+            padding-bottom: 1.5rem;
+        }
+
+        .faq__answer p {
+            color: var(--color-text-muted);
+        }
+
+        /* ============================================
+           RESOURCES SECTION
+           ============================================ */
+        .resources__list {
+            display: grid;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .resources__list {
+                grid-template-columns: repeat(3, 1fr);
+                max-width: none;
+            }
+        }
+
+        .resource-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            background: var(--color-primary-light);
+            padding: 1.5rem;
+            border-radius: 12px;
+            color: var(--color-text);
+            transition: all 0.2s;
+        }
+
+        .resource-link:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .resource-link__icon {
+            font-size: 1.5rem;
+        }
+
+        /* ============================================
+           FINAL CTA SECTION
+           ============================================ */
+        .final-cta {
+            background: linear-gradient(135deg, var(--color-accent), #4f46e5);
+            text-align: center;
+        }
+
+        .final-cta .headline {
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .final-cta__price {
+            font-size: 1.125rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        /* ============================================
+           STICKY CTA
+           ============================================ */
+        .sticky-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--color-primary-dark);
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            border-top: 1px solid var(--color-primary-light);
+            z-index: 99;
+            transform: translateY(100%);
+            transition: transform 0.3s;
+        }
+
+        .sticky-cta.visible {
+            transform: translateY(0);
+        }
+
+        .sticky-cta__price {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        .sticky-cta__price strong {
+            color: var(--color-cta);
+            font-size: 1.125rem;
+        }
+
+        .sticky-cta .btn {
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        /* Hide sticky CTA on desktop if not needed */
+        @media (min-width: 1024px) {
+            .sticky-cta {
+                max-width: 400px;
+                left: auto;
+                right: 2rem;
+                bottom: 2rem;
+                border-radius: 12px;
+                border: 1px solid var(--color-primary-light);
+            }
+        }
+
+        /* ============================================
+           FOOTER
+           ============================================ */
+        .footer {
+            background: var(--color-primary-dark);
+            padding: 3rem 1.5rem;
+            text-align: center;
+        }
+
+        .footer__logo {
+            width: 150px;
+            margin: 0 auto 2rem;
+        }
+
+        .footer__links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer__link {
+            color: var(--color-text-muted);
+            font-size: 0.875rem;
+        }
+
+        .footer__link:hover {
+            color: var(--color-accent-light);
+        }
+
+        .footer__copyright {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Spacer for sticky CTA */
+        .sticky-spacer {
+            height: 80px;
+        }
+    </style>
+</head>
+<body>
+    <!-- ============================================
+         HEADER - Cytron Logo Badge (top-right)
+         ============================================ -->
+    <header class="header">
+        <!-- DEVELOPER NOTE: Update logo src to your actual logo path -->
+        <img src="Cytron-Logo-LIGHT_BLUE-800x320.png" alt="Cytron Technologies" class="header__logo">
+    </header>
+
+    <!-- ============================================
+         HERO SECTION
+         ============================================ -->
+    <section class="hero">
+        <div class="hero__content">
+            <h1 class="headline headline--xl hero__headline">
+                The ESP32 you know. Easier to learn, better to build with.
+            </h1>
+            <p class="hero__subheadline">
+                Pin-compatible with NodeMCU ESP32 — plus visual feedback that shows you what your code is actually doing.
+            </p>
+            <div class="hero__cta">
+                <!-- DEVELOPER NOTE: Update href to actual product page -->
+                <!-- Post-launch: Change button text to "Shop Maker ESP32" (remove price) -->
+                <a href="#pricing" class="btn btn--primary">Get Maker ESP32</a>
+            </div>
+        </div>
+
+        <!-- Product Image with diagonal positioning -->
+        <div class="hero__product-wrapper">
+            <img src="Maker ESP32 (a).png" alt="Maker ESP32 Development Board" class="hero__product-image">
+        </div>
+    </section>
+
+    <!-- ============================================
+         PROBLEM SECTION
+         ============================================ -->
+    <section class="section problem">
+        <div class="container">
+            <h2 class="headline headline--lg" style="margin-bottom: 1.5rem;">
+                Ever uploaded code and had no idea if it actually worked?
+            </h2>
+            <p class="problem__body">
+                You hit upload. It says "success." And then... nothing tells you if your ESP32 is doing what you asked.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         THREE PILLARS SECTION
+         ============================================ -->
+    <section class="section pillars">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">Built to remove exactly that guesswork.</h2>
+            </div>
+
+            <div class="pillars__grid">
+                <!-- Pillar 1: Start Faster -->
+                <div class="pillar-card circuit-corner">
+                    <div class="pillar-card__icon">
+                        <!-- Plug/Lightning icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-card__title">Start Faster</h3>
+                    <ul class="pillar-card__body pillar-card__list">
+                        <li>USB-C — no hunting for the right cable</li>
+                        <li>Automatic upload — no BOOT button holding</li>
+                        <li>Plug in and go</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 2: Understand Better -->
+                <div class="pillar-card circuit-corner">
+                    <div class="pillar-card__icon">
+                        <!-- Eye icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-card__title">Understand Better</h3>
+                    <ul class="pillar-card__body pillar-card__list">
+                        <li>14 GPIO LEDs show pin activity in real time</li>
+                        <li>RX/TX indicators for serial communication</li>
+                        <li>See what your code is doing, not just guess</li>
+                    </ul>
+                </div>
+
+                <!-- Pillar 3: Build Further -->
+                <div class="pillar-card circuit-corner">
+                    <div class="pillar-card__icon">
+                        <!-- Rocket icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/>
+                            <path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/>
+                            <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/>
+                            <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/>
+                        </svg>
+                    </div>
+                    <h3 class="pillar-card__title">Build Further</h3>
+                    <ul class="pillar-card__body pillar-card__list">
+                        <li>8MB flash for larger projects</li>
+                        <li>Wi-Fi and Bluetooth built in</li>
+                        <li>Maker Port for Qwiic, STEMMA, and Grove modules</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRODUCT SHOWCASE
+         ============================================ -->
+    <section class="product-showcase">
+        <div class="container">
+            <!-- DEVELOPER NOTE: Update src to actual product photo (3/4 diagonal angle) -->
+            <img src="Maker ESP32 (a).png" alt="Maker ESP32 Development Board" class="product-showcase__image">
+        </div>
+    </section>
+
+    <!-- ============================================
+         COMPARISON TABLE SECTION
+         ============================================ -->
+    <section class="section comparison" id="comparison">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">What RM10 more actually gets you.</h2>
+            </div>
+
+            <div class="comparison__table-wrapper">
+                <!-- DEVELOPER NOTE: Fill in exact spec values in the table cells -->
+                <table class="comparison__table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Maker ESP32</th>
+                            <th>NodeMCU ESP32</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>USB Connector</td>
+                            <td>USB Type-C</td>
+                            <td>Micro USB</td>
+                        </tr>
+                        <tr>
+                            <td>Flash Memory</td>
+                            <td>8MB</td>
+                            <td>4MB</td>
+                        </tr>
+                        <tr>
+                            <td>GPIO LEDs</td>
+                            <td><span class="check">14 LEDs</span></td>
+                            <td><span class="no-check">None</span></td>
+                        </tr>
+                        <tr>
+                            <td>RX/TX LEDs</td>
+                            <td><span class="check">Yes</span></td>
+                            <td><span class="no-check">No</span></td>
+                        </tr>
+                        <tr>
+                            <td>User Button</td>
+                            <td><span class="check">Yes</span></td>
+                            <td><span class="no-check">No</span></td>
+                        </tr>
+                        <tr>
+                            <td>Buzzer (with mute)</td>
+                            <td><span class="check">Yes</span></td>
+                            <td><span class="no-check">No</span></td>
+                        </tr>
+                        <tr>
+                            <td>Maker Port</td>
+                            <td><span class="check">Qwiic/STEMMA/Grove</span></td>
+                            <td><span class="no-check">No</span></td>
+                        </tr>
+                        <tr>
+                            <td>SIRIM Approved</td>
+                            <td><span class="check">Yes</span></td>
+                            <td>Varies</td>
+                        </tr>
+                        <tr>
+                            <td>Local Support</td>
+                            <td><span class="check">Cytron Tutorials</span></td>
+                            <td>Community only</td>
+                        </tr>
+                        <tr>
+                            <td>Price</td>
+                            <td><strong>RM39</strong></td>
+                            <td>~RM29</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="comparison__summary">
+                Pay RM10 more for USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer with mute switch, a Maker Port, SIRIM-approved module, and Cytron's tutorials and local support.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         HOW IT WORKS SECTION
+         ============================================ -->
+    <section class="section how-it-works">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">From box to blinking LED in three steps.</h2>
+            </div>
+
+            <div class="how-it-works__steps">
+                <div class="step">
+                    <div class="step__number">1</div>
+                    <h3 class="step__title">Plug in</h3>
+                    <p class="step__body">USB-C, no driver hunting</p>
+                </div>
+
+                <div class="step">
+                    <div class="step__number">2</div>
+                    <h3 class="step__title">Upload</h3>
+                    <p class="step__body">One click, no BOOT-button holding</p>
+                </div>
+
+                <div class="step">
+                    <div class="step__number">3</div>
+                    <h3 class="step__title">Watch it light up</h3>
+                    <p class="step__body">See your first GPIO output immediately</p>
+                </div>
+            </div>
+
+            <p class="how-it-works__support">
+                <!-- DEVELOPER NOTE: Update href to actual Getting Started guide -->
+                Full Getting Started guide included in the box, and online at <a href="#">link</a>.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         PRICING SECTION (Launch window only: 16-29 Sep)
+         ============================================ -->
+    <section class="section pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">Launch price — 16 to 29 September.</h2>
+            </div>
+
+            <div class="pricing__card circuit-corner">
+                <div class="pricing__price">
+                    <div class="pricing__old-price">RM40.95</div>
+                    <div class="pricing__new-price">RM32.76</div>
+                </div>
+                <p class="pricing__note">Automatically applied. No code needed. Website purchases only.</p>
+
+                <!-- Countdown Timer -->
+                <div class="countdown" id="countdown">
+                    <div class="countdown__item">
+                        <span class="countdown__value" id="countdown-days">00</span>
+                        <span class="countdown__label">Days</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__value" id="countdown-hours">00</span>
+                        <span class="countdown__label">Hours</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__value" id="countdown-mins">00</span>
+                        <span class="countdown__label">Mins</span>
+                    </div>
+                    <div class="countdown__item">
+                        <span class="countdown__value" id="countdown-secs">00</span>
+                        <span class="countdown__label">Secs</span>
+                    </div>
+                </div>
+
+                <!-- DEVELOPER NOTE: Update href to actual product page -->
+                <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FAQ SECTION
+         ============================================ -->
+    <section class="section faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">Common questions from first-time ESP32 learners.</h2>
+            </div>
+
+            <div class="faq__list">
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Does it work with my existing NodeMCU code?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Yes. Maker ESP32 keeps the same GPIO breakout and pin layout, so existing NodeMCU ESP32 code and tutorials work without changes.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        What driver do I need?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>A CH9102F USB driver, linked in the Getting Started guide.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Is it compatible with Arduino IDE?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Yes, along with ESP-IDF.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Is the module certified?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <!-- DEVELOPER NOTE: This exact wording must be kept per legal requirements -->
+                        <p>Powered by an ESP32-WROOM-32E wireless module type-approved by SIRIM under Cytron Technologies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         RESOURCES SECTION
+         ============================================ -->
+    <section class="section resources">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">Everything you need to get started.</h2>
+            </div>
+
+            <div class="resources__list">
+                <!-- DEVELOPER NOTE: Update all href values to actual resource links -->
+                <a href="#" class="resource-link">
+                    <span class="resource-link__icon">📖</span>
+                    <span>Getting Started Guide</span>
+                </a>
+
+                <a href="#" class="resource-link">
+                    <span class="resource-link__icon">🎓</span>
+                    <span>Full Tutorial Library (30+ tutorials)</span>
+                </a>
+
+                <a href="#" class="resource-link">
+                    <span class="resource-link__icon">📋</span>
+                    <span>Datasheet & Pinout</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FINAL CTA SECTION
+         ============================================ -->
+    <section class="section final-cta">
+        <div class="container">
+            <h2 class="headline headline--lg">Your first ESP32 board, made easier.</h2>
+            <p class="final-cta__price">RM32.76 during launch — 16 to 29 September.</p>
+            <!-- DEVELOPER NOTE: Update href to actual product page -->
+            <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+        </div>
+    </section>
+
+    <!-- ============================================
+         FOOTER
+         ============================================ -->
+    <footer class="footer">
+        <div class="container">
+            <!-- DEVELOPER NOTE: Update logo src -->
+            <img src="Cytron-Logo-LIGHT_BLUE-800x320.png" alt="Cytron Technologies" class="footer__logo">
+
+            <nav class="footer__links">
+                <!-- DEVELOPER NOTE: Update all href values -->
+                <a href="#" class="footer__link">Getting Started Guide</a>
+                <a href="#" class="footer__link">Tutorial Library</a>
+                <a href="#" class="footer__link">Datasheet</a>
+                <a href="#" class="footer__link">Support</a>
+                <a href="#" class="footer__link">About Cytron</a>
+            </nav>
+
+            <p class="footer__copyright">
+                &copy; 2026 Cytron Technologies. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <!-- Spacer for sticky CTA -->
+    <div class="sticky-spacer"></div>
+
+    <!-- ============================================
+         STICKY CTA (appears on scroll)
+         ============================================ -->
+    <div class="sticky-cta" id="sticky-cta">
+        <div class="sticky-cta__price">
+            <span>Launch price:</span> <strong>RM32.76</strong>
+        </div>
+        <!-- DEVELOPER NOTE: Update href to actual product page -->
+        <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+    </div>
+
+    <!-- ============================================
+         JAVASCRIPT
+         ============================================ -->
+    <script>
+        /* ============================================
+           CONFIGURATION - Easy to edit
+           ============================================ */
+
+        // DEVELOPER NOTE: Update these dates for the launch window
+        // Format: Year, Month (0-indexed), Day, Hour, Minute
+        const LAUNCH_START = new Date(2024, 8, 16, 0, 0, 0);  // Sep 16, 2024, 00:00
+        const LAUNCH_END = new Date(2024, 8, 29, 23, 59, 59); // Sep 29, 2024, 23:59
+
+        /* ============================================
+           COUNTDOWN TIMER
+           ============================================ */
+        function updateCountdown() {
+            const now = new Date();
+            const pricingSection = document.getElementById('pricing');
+            const countdownEl = document.getElementById('countdown');
+
+            // Check if we're within the launch window
+            if (now < LAUNCH_START || now > LAUNCH_END) {
+                // Outside launch window - hide pricing section
+                if (pricingSection) {
+                    pricingSection.classList.add('pricing--hidden');
+                }
+                return;
+            }
+
+            // Calculate time remaining until launch end
+            const timeLeft = LAUNCH_END - now;
+
+            if (timeLeft <= 0) {
+                // Countdown finished
+                if (countdownEl) {
+                    countdownEl.innerHTML = '<p style="color: var(--color-text-muted);">Offer has ended</p>';
+                }
+                return;
+            }
+
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            const secs = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            // Update DOM
+            document.getElementById('countdown-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('countdown-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('countdown-mins').textContent = String(mins).padStart(2, '0');
+            document.getElementById('countdown-secs').textContent = String(secs).padStart(2, '0');
+        }
+
+        // Initialize countdown and update every second
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        /* ============================================
+           FAQ ACCORDION
+           ============================================ */
+        document.querySelectorAll('.faq__question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all other FAQ items
+                document.querySelectorAll('.faq__item').forEach(item => {
+                    item.classList.remove('active');
+                });
+
+                // Toggle current item
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        /* ============================================
+           STICKY CTA - Show/hide on scroll
+           ============================================ */
+        const stickyCta = document.getElementById('sticky-cta');
+        const heroSection = document.querySelector('.hero');
+
+        function handleStickyCtaVisibility() {
+            if (!stickyCta || !heroSection) return;
+
+            const heroBottom = heroSection.getBoundingClientRect().bottom;
+
+            // Show sticky CTA when hero is scrolled out of view
+            if (heroBottom < 0) {
+                stickyCta.classList.add('visible');
+            } else {
+                stickyCta.classList.remove('visible');
+            }
+        }
+
+        // Throttle scroll event for performance
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            if (scrollTimeout) return;
+            scrollTimeout = setTimeout(() => {
+                handleStickyCtaVisibility();
+                scrollTimeout = null;
+            }, 100);
+        });
+
+        // Initial check
+        handleStickyCtaVisibility();
+
+        /* ============================================
+           SMOOTH SCROLL FOR ANCHOR LINKS
+           ============================================ */
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    e.preventDefault();
+                    targetEl.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
