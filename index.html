@@ -246,11 +246,10 @@
            HERO SECTION
            ============================================ */
         .hero {
-            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            padding: 6rem 1.5rem 4rem;
+            padding: 5rem 1.5rem 3rem;
             position: relative;
             overflow: hidden;
         }
@@ -352,8 +351,8 @@
             .hero {
                 flex-direction: row;
                 align-items: center;
-                gap: 2rem;
-                padding: 8rem 4rem;
+                gap: 0;
+                padding: 6rem 4rem 4rem;
                 overflow: hidden;
             }
 
@@ -363,25 +362,39 @@
             }
 
             .hero__product-wrapper {
-                flex: 1.2;
+                flex: 1.3;
                 min-height: 400px;
                 margin-right: -100px;
+                margin-left: -60px;
             }
 
             .hero__product-image {
-                max-width: 550px;
-                transform: rotate(12deg) translateX(20%);
+                max-width: 500px;
+                transform: rotate(12deg) translateX(5%);
             }
         }
 
         @media (min-width: 1024px) {
             .hero__product-wrapper {
-                margin-right: -150px;
+                margin-right: -120px;
+                margin-left: -80px;
             }
 
             .hero__product-image {
-                max-width: 600px;
-                transform: rotate(12deg) translateX(25%);
+                max-width: 580px;
+                transform: rotate(12deg) translateX(10%);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .hero__product-wrapper {
+                margin-right: -150px;
+                margin-left: -60px;
+            }
+
+            .hero__product-image {
+                max-width: 650px;
+                transform: rotate(12deg) translateX(15%);
             }
         }
 
@@ -398,6 +411,71 @@
             color: var(--color-text-muted);
             max-width: 700px;
             margin: 0 auto;
+        }
+
+        /* ============================================
+           VIDEO DEMO SECTION
+           ============================================ */
+        .video-demo {
+            padding: 4rem 1.5rem 5rem;
+            text-align: center;
+        }
+
+        .video-demo .headline {
+            margin-bottom: 2rem;
+        }
+
+        .video-demo__wrapper {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            border-radius: 16px;
+            overflow: hidden;
+            background: var(--color-primary-light);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-demo__player {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: block;
+            background: var(--color-primary-dark);
+        }
+
+        /* Placeholder styling - remove when real video added */
+        .video-demo__placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-light));
+            color: var(--color-text-muted);
+            gap: 1rem;
+        }
+
+        .video-demo__placeholder svg {
+            width: 80px;
+            height: 80px;
+            opacity: 0.5;
+        }
+
+        .video-demo__caption {
+            margin-top: 1.5rem;
+            color: var(--color-text-muted);
+            font-size: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .video-demo {
+                padding: 5rem 2rem 6rem;
+            }
+
+            .video-demo__placeholder svg {
+                width: 100px;
+                height: 100px;
+            }
         }
 
         /* ============================================
@@ -689,20 +767,6 @@
         }
 
         /* ============================================
-           PRODUCT IMAGE SECTION
-           ============================================ */
-        .product-showcase {
-            text-align: center;
-            padding: 4rem 1.5rem;
-        }
-
-        .product-showcase__image {
-            max-width: 400px;
-            margin: 0 auto;
-            /* 3/4 diagonal angle is in the actual photo */
-        }
-
-        /* ============================================
            FAQ SECTION
            ============================================ */
         .faq {
@@ -943,7 +1007,7 @@
 
         <!-- Product Image with diagonal positioning -->
         <div class="hero__product-wrapper">
-            <img src="Maker ESP32 (a).png" alt="Maker ESP32 Development Board" class="hero__product-image">
+            <img src="Maker_ESP32_Board_Transparent.png" alt="Maker ESP32 Development Board" class="hero__product-image">
         </div>
     </section>
 
@@ -958,6 +1022,33 @@
             <p class="problem__body">
                 You hit upload. It says "success." And then... nothing tells you if your ESP32 is doing what you asked.
             </p>
+        </div>
+    </section>
+
+    <!-- ============================================
+         VIDEO DEMO SECTION
+         ============================================ -->
+    <section class="section video-demo">
+        <div class="container">
+            <h2 class="headline headline--lg">See it for yourself.</h2>
+
+            <div class="video-demo__wrapper">
+                <!-- DEVELOPER NOTE: Replace placeholder with actual video/GIF -->
+                <div class="video-demo__placeholder">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="10"/>
+                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
+                    </svg>
+                    <span>GPIO demo video goes here</span>
+                </div>
+                <!-- When video is ready, replace placeholder with:
+                <video class="video-demo__player" autoplay loop muted playsinline>
+                    <source src="gpio-demo.mp4" type="video/mp4">
+                </video>
+                -->
+            </div>
+
+            <p class="video-demo__caption">Watch the GPIO LEDs respond in real time as code runs.</p>
         </div>
     </section>
 
@@ -1023,16 +1114,6 @@
                     </ul>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- ============================================
-         PRODUCT SHOWCASE
-         ============================================ -->
-    <section class="product-showcase">
-        <div class="container">
-            <!-- DEVELOPER NOTE: Update src to actual product photo (3/4 diagonal angle) -->
-            <img src="Maker ESP32 (a).png" alt="Maker ESP32 Development Board" class="product-showcase__image">
         </div>
     </section>
 
