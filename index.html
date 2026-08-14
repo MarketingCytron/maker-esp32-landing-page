@@ -19,25 +19,35 @@
            CSS CUSTOM PROPERTIES (Easy to edit)
            ============================================ */
         :root {
-            /* Primary palette - Deep indigo/purple */
-            --color-primary: #1a1a3e;        /* Deep indigo - main background */
-            --color-primary-light: #2d2d5a;  /* Lighter indigo for cards */
-            --color-primary-dark: #0f0f24;   /* Darker shade for footer */
-            --color-accent: #7c3aed;         /* Vibrant purple accent */
-            --color-accent-light: #a78bfa;   /* Light purple for hovers */
-            --color-accent-glow: rgba(124, 58, 237, 0.3); /* Glow effect */
+            /* Light mode (default) - matching Website_Banner.png */
+            --color-primary: #f8f7fc;        /* Very light lavender background */
+            --color-primary-light: #ffffff;  /* White for cards */
+            --color-primary-dark: #efedf5;   /* Slightly darker lavender for sections */
+            --color-accent: #5b4b9e;         /* Deep indigo/purple accent */
+            --color-accent-light: #7c6bb8;   /* Lighter purple for hovers */
+            --color-accent-glow: rgba(91, 75, 158, 0.15); /* Subtle glow */
 
             /* Text colors */
-            --color-text: #ffffff;
-            --color-text-muted: #a5a5c0;
-            --color-text-dark: #1a1a3e;
+            --color-text: #2d2654;           /* Deep indigo for text */
+            --color-text-muted: #6b6194;     /* Muted purple-gray */
+            --color-text-heading: #4a3a8c;   /* Deep purple for headlines */
 
             /* CTA colors */
-            --color-cta: #22c55e;            /* Green for primary CTA */
-            --color-cta-hover: #16a34a;
+            --color-cta: #5b4b9e;            /* Purple CTA to match brand */
+            --color-cta-hover: #4a3a8c;
+            --color-cta-text: #ffffff;
 
             /* Circuit accent color */
-            --color-circuit: rgba(124, 58, 237, 0.4);
+            --color-circuit: rgba(91, 75, 158, 0.2);
+
+            /* Card/surface colors */
+            --color-surface: #ffffff;
+            --color-surface-alt: #f0eef6;
+            --color-border: rgba(91, 75, 158, 0.15);
+
+            /* Table colors */
+            --color-table-header: #5b4b9e;
+            --color-table-highlight: rgba(91, 75, 158, 0.08);
 
             /* Spacing */
             --section-padding: 4rem 1.5rem;
@@ -45,8 +55,35 @@
 
             /* Typography */
             --font-headline: 'Oswald', sans-serif;
-            --font-script: 'Caveat', cursive;  /* Brush script for product name */
+            --font-script: 'Caveat', cursive;
             --font-body: 'Inter', sans-serif;
+        }
+
+        /* Dark mode theme */
+        [data-theme="dark"] {
+            --color-primary: #1a1a3e;
+            --color-primary-light: #2d2d5a;
+            --color-primary-dark: #0f0f24;
+            --color-accent: #7c3aed;
+            --color-accent-light: #a78bfa;
+            --color-accent-glow: rgba(124, 58, 237, 0.3);
+
+            --color-text: #ffffff;
+            --color-text-muted: #a5a5c0;
+            --color-text-heading: #ffffff;
+
+            --color-cta: #22c55e;
+            --color-cta-hover: #16a34a;
+            --color-cta-text: #ffffff;
+
+            --color-circuit: rgba(124, 58, 237, 0.4);
+
+            --color-surface: #2d2d5a;
+            --color-surface-alt: #1a1a3e;
+            --color-border: rgba(124, 58, 237, 0.3);
+
+            --color-table-header: #7c3aed;
+            --color-table-highlight: rgba(124, 58, 237, 0.1);
         }
 
         /* ============================================
@@ -68,6 +105,14 @@
             color: var(--color-text);
             line-height: 1.6;
             overflow-x: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Smooth transitions for themed elements */
+        .section, .pillar-card, .comparison__table, .pricing__card,
+        .faq__item, .resource-link, .video-demo__wrapper, .sticky-cta,
+        .header, .footer, .btn, .theme-toggle {
+            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
         img {
@@ -108,6 +153,7 @@
             font-style: italic;
             line-height: 1.1;
             letter-spacing: -0.02em;
+            color: var(--color-text-heading);
         }
 
         .headline--xl {
@@ -199,12 +245,13 @@
 
         .btn--primary {
             background: var(--color-cta);
-            color: white;
-            box-shadow: 0 4px 20px rgba(34, 197, 94, 0.3);
+            color: var(--color-cta-text);
+            box-shadow: 0 4px 20px var(--color-accent-glow);
         }
 
         .btn--primary:hover {
             background: var(--color-cta-hover);
+            color: var(--color-cta-text);
             transform: translateY(-2px);
             box-shadow: 0 6px 25px rgba(34, 197, 94, 0.4);
             color: white;
@@ -232,14 +279,63 @@
             z-index: 100;
             padding: 1rem 1.5rem;
             display: flex;
-            justify-content: flex-end;
-            background: linear-gradient(to bottom, var(--color-primary-dark), transparent);
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(to bottom, var(--color-primary), transparent);
+        }
+
+        .header__left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
         }
 
         .header__logo {
-            /* DEVELOPER NOTE: Replace src with actual logo path */
             width: 120px;
             height: auto;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--color-accent);
+        }
+
+        .theme-toggle:hover {
+            background: var(--color-accent);
+            color: white;
+            transform: scale(1.05);
+        }
+
+        .theme-toggle svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Show/hide sun/moon icons based on theme */
+        .theme-toggle .icon-sun {
+            display: block;
+        }
+
+        .theme-toggle .icon-moon {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .icon-sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .theme-toggle .icon-moon {
+            display: block;
         }
 
         /* ============================================
@@ -402,7 +498,7 @@
            PROBLEM SECTION
            ============================================ */
         .problem {
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
             text-align: center;
         }
 
@@ -431,7 +527,8 @@
             margin: 0 auto;
             border-radius: 16px;
             overflow: hidden;
-            background: var(--color-primary-light);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
         }
 
@@ -439,7 +536,7 @@
             width: 100%;
             aspect-ratio: 16 / 9;
             display: block;
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
         }
 
         /* Placeholder styling - remove when real video added */
@@ -450,7 +547,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary-light));
+            background: linear-gradient(135deg, var(--color-surface-alt), var(--color-surface));
             color: var(--color-text-muted);
             gap: 1rem;
         }
@@ -494,7 +591,8 @@
         }
 
         .pillar-card {
-            background: var(--color-primary-light);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
             border-radius: 16px;
             padding: 2rem;
             position: relative;
@@ -510,6 +608,7 @@
             width: 48px;
             height: 48px;
             background: var(--color-accent);
+            color: white;
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -561,7 +660,7 @@
            COMPARISON TABLE SECTION
            ============================================ */
         .comparison {
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
         }
 
         .comparison__table-wrapper {
@@ -573,32 +672,35 @@
             width: 100%;
             min-width: 500px;
             border-collapse: collapse;
-            background: var(--color-primary-light);
+            background: var(--color-surface);
             border-radius: 12px;
             overflow: hidden;
+            border: 1px solid var(--color-border);
         }
 
         .comparison__table th,
         .comparison__table td {
             padding: 1rem;
             text-align: left;
-            border-bottom: 1px solid var(--color-primary);
+            border-bottom: 1px solid var(--color-border);
         }
 
         .comparison__table th {
-            background: var(--color-accent);
+            background: var(--color-table-header);
+            color: white;
             font-family: var(--font-headline);
             font-weight: 700;
             font-style: italic;
         }
 
         .comparison__table th:first-child {
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
+            color: var(--color-text);
         }
 
         /* Highlight Maker ESP32 column */
         .comparison__table td:nth-child(2) {
-            background: rgba(124, 58, 237, 0.1);
+            background: var(--color-table-highlight);
         }
 
         .comparison__table tr:last-child td {
@@ -647,6 +749,7 @@
             width: 60px;
             height: 60px;
             background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -679,12 +782,12 @@
            PRICING SECTION
            ============================================ */
         .pricing {
-            background: linear-gradient(135deg, var(--color-primary-dark), var(--color-primary));
+            background: linear-gradient(135deg, var(--color-surface-alt), var(--color-primary));
             text-align: center;
         }
 
         .pricing__card {
-            background: var(--color-primary-light);
+            background: var(--color-surface);
             border: 2px solid var(--color-accent);
             border-radius: 20px;
             padding: 3rem 2rem;
@@ -748,7 +851,8 @@
             font-family: var(--font-headline);
             font-size: 2rem;
             font-weight: 700;
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
+            color: var(--color-text);
             padding: 0.75rem 1rem;
             border-radius: 8px;
             min-width: 60px;
@@ -770,7 +874,7 @@
            FAQ SECTION
            ============================================ */
         .faq {
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
         }
 
         .faq__list {
@@ -779,7 +883,7 @@
         }
 
         .faq__item {
-            border-bottom: 1px solid var(--color-primary-light);
+            border-bottom: 1px solid var(--color-border);
         }
 
         .faq__question {
@@ -849,7 +953,8 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-            background: var(--color-primary-light);
+            background: var(--color-surface);
+            border: 1px solid var(--color-border);
             padding: 1.5rem;
             border-radius: 12px;
             color: var(--color-text);
@@ -883,6 +988,21 @@
             font-size: 1.125rem;
             margin-bottom: 2rem;
             opacity: 0.9;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Override button in final CTA for contrast against purple background */
+        .final-cta .btn--primary {
+            background: white;
+            color: #4a3a8c;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .final-cta .btn--primary:hover {
+            background: #f0eef6;
+            color: #4a3a8c;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.25);
         }
 
         /* ============================================
@@ -893,13 +1013,13 @@
             bottom: 0;
             left: 0;
             right: 0;
-            background: var(--color-primary-dark);
+            background: var(--color-surface);
             padding: 1rem 1.5rem;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 1rem;
-            border-top: 1px solid var(--color-primary-light);
+            border-top: 1px solid var(--color-border);
             z-index: 99;
             transform: translateY(100%);
             transition: transform 0.3s;
@@ -932,7 +1052,7 @@
                 right: 2rem;
                 bottom: 2rem;
                 border-radius: 12px;
-                border: 1px solid var(--color-primary-light);
+                border: 1px solid var(--color-border);
             }
         }
 
@@ -940,7 +1060,7 @@
            FOOTER
            ============================================ */
         .footer {
-            background: var(--color-primary-dark);
+            background: var(--color-surface-alt);
             padding: 3rem 1.5rem;
             text-align: center;
         }
@@ -980,10 +1100,27 @@
 </head>
 <body>
     <!-- ============================================
-         HEADER - Cytron Logo Badge (top-right)
+         HEADER - Logo and Theme Toggle
          ============================================ -->
     <header class="header">
-        <!-- DEVELOPER NOTE: Update logo src to your actual logo path -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+            <!-- Sun icon (shown in light mode, click for dark) -->
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/>
+                <line x1="12" y1="1" x2="12" y2="3"/>
+                <line x1="12" y1="21" x2="12" y2="23"/>
+                <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                <line x1="1" y1="12" x2="3" y2="12"/>
+                <line x1="21" y1="12" x2="23" y2="12"/>
+                <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <!-- Moon icon (shown in dark mode, click for light) -->
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+            </svg>
+        </button>
         <img src="Cytron-Logo-LIGHT_BLUE-800x320.png" alt="Cytron Technologies" class="header__logo">
     </header>
 
@@ -1364,7 +1501,7 @@
     <section class="section final-cta">
         <div class="container">
             <h2 class="headline headline--lg">Your first ESP32 board, made easier.</h2>
-            <p class="final-cta__price">RM32.76 during launch — 16 to 29 September.</p>
+            <p class="final-cta__price">20% off during launch — 16 to 29 September.</p>
             <!-- DEVELOPER NOTE: Update href to actual product page -->
             <a href="#" class="btn btn--primary">Get Maker ESP32</a>
         </div>
@@ -1400,10 +1537,6 @@
          STICKY CTA (appears on scroll)
          ============================================ -->
     <div class="sticky-cta" id="sticky-cta">
-        <div class="sticky-cta__price">
-            <span>Launch price:</span> <strong>RM32.76</strong>
-        </div>
-        <!-- DEVELOPER NOTE: Update href to actual product page -->
         <a href="#" class="btn btn--primary">Get Maker ESP32</a>
     </div>
 
@@ -1419,6 +1552,41 @@
         // Format: Year, Month (0-indexed), Day, Hour, Minute
         const LAUNCH_START = new Date(2024, 8, 16, 0, 0, 0);  // Sep 16, 2024, 00:00
         const LAUNCH_END = new Date(2024, 8, 29, 23, 59, 59); // Sep 29, 2024, 23:59
+
+        /* ============================================
+           THEME TOGGLE (Light/Dark Mode)
+           ============================================ */
+        const themeToggle = document.getElementById('theme-toggle');
+        const THEME_KEY = 'maker-esp32-theme';
+
+        // Initialize theme from localStorage or default to light
+        function initTheme() {
+            const savedTheme = localStorage.getItem(THEME_KEY);
+            if (savedTheme === 'dark') {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+            // Light mode is default (no data-theme attribute needed)
+        }
+
+        // Toggle between light and dark themes
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                localStorage.setItem(THEME_KEY, 'light');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                localStorage.setItem(THEME_KEY, 'dark');
+            }
+        }
+
+        // Initialize theme on page load
+        initTheme();
+
+        // Add click listener to toggle button
+        if (themeToggle) {
+            themeToggle.addEventListener('click', toggleTheme);
+        }
 
         /* ============================================
            COUNTDOWN TIMER
