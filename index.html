@@ -778,6 +778,15 @@
             color: var(--color-text-muted);
         }
 
+        .how-it-works__support a {
+            color: var(--color-accent);
+            text-decoration: underline;
+        }
+
+        .how-it-works__support a:hover {
+            color: var(--color-accent-light);
+        }
+
         /* ============================================
            PRICING SECTION
            ============================================ */
@@ -967,6 +976,18 @@
             transform: translateY(-2px);
         }
 
+        .resource-link--guide {
+            color: var(--color-accent);
+        }
+
+        .resource-link--guide span:last-child {
+            text-decoration: underline;
+        }
+
+        .resource-link--guide:hover {
+            color: white;
+        }
+
         .resource-link__icon {
             font-size: 1.5rem;
         }
@@ -1136,9 +1157,8 @@
                 Pin-compatible with NodeMCU ESP32 — plus visual feedback that shows you what your code is actually doing.
             </p>
             <div class="hero__cta">
-                <!-- DEVELOPER NOTE: Update href to actual product page -->
                 <!-- Post-launch: Change button text to "Shop Maker ESP32" (remove price) -->
-                <a href="#pricing" class="btn btn--primary">Get Maker ESP32</a>
+                <a href="https://my.cytron.io/p-maker-esp32?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" class="btn btn--primary">Get Maker ESP32</a>
             </div>
         </div>
 
@@ -1275,22 +1295,27 @@
                     </thead>
                     <tbody>
                         <tr>
+                            <td>Flash Memory</td>
+                            <td>8 MB</td>
+                            <td>4 MB</td>
+                        </tr>
+                        <tr>
                             <td>USB Connector</td>
                             <td>USB Type-C</td>
                             <td>Micro USB</td>
                         </tr>
                         <tr>
-                            <td>Flash Memory</td>
-                            <td>8MB</td>
-                            <td>4MB</td>
+                            <td>GPIO Indicator LED</td>
+                            <td><span class="check">14 GPIO LEDs</span></td>
+                            <td>1 GPIO LED (GPIO 2)</td>
                         </tr>
                         <tr>
-                            <td>GPIO LEDs</td>
-                            <td><span class="check">14 LEDs</span></td>
-                            <td><span class="no-check">None</span></td>
+                            <td>RX and TX LED</td>
+                            <td><span class="check">Yes</span></td>
+                            <td><span class="no-check">No</span></td>
                         </tr>
                         <tr>
-                            <td>RX/TX LEDs</td>
+                            <td>Passive Buzzer</td>
                             <td><span class="check">Yes</span></td>
                             <td><span class="no-check">No</span></td>
                         </tr>
@@ -1300,24 +1325,9 @@
                             <td><span class="no-check">No</span></td>
                         </tr>
                         <tr>
-                            <td>Buzzer (with mute)</td>
-                            <td><span class="check">Yes</span></td>
-                            <td><span class="no-check">No</span></td>
-                        </tr>
-                        <tr>
                             <td>Maker Port</td>
-                            <td><span class="check">Qwiic/STEMMA/Grove</span></td>
+                            <td><span class="check">Yes (I2C)</span></td>
                             <td><span class="no-check">No</span></td>
-                        </tr>
-                        <tr>
-                            <td>SIRIM Approved</td>
-                            <td><span class="check">Yes</span></td>
-                            <td>Varies</td>
-                        </tr>
-                        <tr>
-                            <td>Local Support</td>
-                            <td><span class="check">Cytron Tutorials</span></td>
-                            <td>Community only</td>
                         </tr>
                     </tbody>
                 </table>
@@ -1360,7 +1370,7 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
 
             <p class="how-it-works__support">
                 <!-- DEVELOPER NOTE: Update href to actual Getting Started guide -->
-                A Getting Started card is included in the box — scan the QR code for the full step-by-step tutorial <a href="#">online</a>.
+                A Getting Started card is included in the box — scan the QR code for the full step-by-step tutorial <a href="https://my.cytron.io/tutorial/getting-started-with-maker-esp32?tracking=maker-esp32-t&utm_campaign=makeresptutorial">online</a>.
             </p>
         </div>
     </section>
@@ -1401,8 +1411,7 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
                     </div>
                 </div>
 
-                <!-- DEVELOPER NOTE: Update href to actual product page -->
-                <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+                <a href="https://my.cytron.io/p-maker-esp32?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" class="btn btn--primary">Get Maker ESP32</a>
             </div>
         </div>
     </section>
@@ -1429,16 +1438,6 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
 
                 <div class="faq__item">
                     <button class="faq__question">
-                        What driver do I need?
-                        <span class="faq__icon">+</span>
-                    </button>
-                    <div class="faq__answer">
-                        <p>A CH9102F USB driver, linked in the Getting Started guide.</p>
-                    </div>
-                </div>
-
-                <div class="faq__item">
-                    <button class="faq__question">
                         Is it compatible with Arduino IDE?
                         <span class="faq__icon">+</span>
                     </button>
@@ -1457,6 +1456,56 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
                         <p>Powered by an ESP32-WROOM-32E wireless module type-approved by SIRIM under Cytron Technologies.</p>
                     </div>
                 </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Do I need to install anything before I start?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>No manual driver installation needed — plug in via USB-C and you're ready to upload.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Do I need any extra components to get started?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>No — the board is fully functional out of the box via USB-C. Extra sensors and modules are only needed once you're ready to build your own projects.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        Is this only for beginners, or can I use it for bigger projects?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>It's designed to be an easy first board, but it grows with you — into IoT, robotics, and final year projects, without switching boards.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        What if I get stuck?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>Cytron's tutorial library, the ESP32 community, and Cytron support are all there to help — you're not figuring it out alone.</p>
+                    </div>
+                </div>
+
+                <div class="faq__item">
+                    <button class="faq__question">
+                        How long is the 20% discount available?
+                        <span class="faq__icon">+</span>
+                    </button>
+                    <div class="faq__answer">
+                        <p>The price is shown from 1 September, and the board becomes purchasable starting 16 September. The 20% discount runs through the display window — check the pricing section above for exact dates.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1472,7 +1521,7 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
 
             <div class="resources__list">
                 <!-- DEVELOPER NOTE: Update all href values to actual resource links -->
-                <a href="#" class="resource-link">
+                <a href="https://my.cytron.io/tutorial/getting-started-with-maker-esp32?tracking=maker-esp32-t&utm_campaign=makeresptutorial" class="resource-link resource-link--guide">
                     <span class="resource-link__icon">📖</span>
                     <span>Getting Started Guide</span>
                 </a>
@@ -1497,8 +1546,7 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
         <div class="container">
             <h2 class="headline headline--lg">Your first ESP32 board, made easier.</h2>
             <p class="final-cta__price">20% off during launch — 16 to 29 September.</p>
-            <!-- DEVELOPER NOTE: Update href to actual product page -->
-            <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+            <a href="https://my.cytron.io/p-maker-esp32?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" class="btn btn--primary">Get Maker ESP32</a>
         </div>
     </section>
 
@@ -1532,7 +1580,7 @@ USB Type-C, double the flash, 14 GPIO LEDs, RX/TX LEDs, a user button, a buzzer 
          STICKY CTA (appears on scroll)
          ============================================ -->
     <div class="sticky-cta" id="sticky-cta">
-        <a href="#" class="btn btn--primary">Get Maker ESP32</a>
+        <a href="https://my.cytron.io/p-maker-esp32?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" class="btn btn--primary">Get Maker ESP32</a>
     </div>
 
     <!-- ============================================
