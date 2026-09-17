@@ -941,6 +941,52 @@
             color: var(--color-text-muted);
         }
 
+        /* Educator testimonial - intentionally set apart as a distinct quote
+           block since it's in Bahasa Melayu while the rest of the page is English */
+        .faq__testimonial {
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            padding: 2rem clamp(1.5rem, 4vw, 3rem);
+            background: var(--color-surface);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 4px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+        }
+
+        .faq__testimonial-quote {
+            font-family: var(--font-headline);
+            font-style: italic;
+            font-weight: 400;
+            font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+            line-height: 1.5;
+            color: var(--color-text-heading);
+        }
+
+        .faq__testimonial-quote::before {
+            content: "\201C";
+            color: var(--color-accent);
+            margin-right: 0.1em;
+        }
+
+        .faq__testimonial-quote::after {
+            content: "\201D";
+            color: var(--color-accent);
+            margin-left: 0.1em;
+        }
+
+        .faq__testimonial-cite {
+            display: block;
+            margin-top: 1.25rem;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+        }
+
+        .faq__testimonial-cite span {
+            color: var(--color-text);
+        }
+
         /* ============================================
            RESOURCES SECTION
            ============================================ */
@@ -1425,6 +1471,11 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
             <div class="section-header">
                 <h2 class="headline headline--lg">Common questions from first-time ESP32 learners.</h2>
             </div>
+
+            <blockquote class="faq__testimonial">
+                <p class="faq__testimonial-quote">Maker ESP32 sangat sesuai untuk Projek Akhir pelajar — dari menulis kod, mengawal input/output, hingga menghasilkan prototaip sendiri. Tiada setup rumit, hanya sambung USB-C dan terus explore. Thumbs up untuk Maker ESP32!</p>
+                <cite class="faq__testimonial-cite">— <span>Puan Nur Amalina</span>, Politeknik Ungku Omar</cite>
+            </blockquote>
 
             <div class="faq__list">
                 <div class="faq__item">
