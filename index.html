@@ -6,7 +6,7 @@
 
     <!-- SEO Meta -->
     <title>Maker ESP32 — Beginner-Friendly ESP32 Board | Cytron Technologies</title>
-    <meta name="description" content="Maker ESP32 is a beginner-friendly, NodeMCU-compatible ESP32 board with 14 GPIO LEDs, USB-C, and automatic upload — built for first-time ESP32 learners. 20% off, 16–30 Sep.">
+    <meta name="description" content="Maker ESP32 is a beginner-friendly, NodeMCU-compatible ESP32 board with 14 GPIO LEDs, USB-C, and automatic upload — built for first-time ESP32 learners. 20% off, 16–29 Sep.">
 
     <!-- Fonts: Using Inter for body and Oswald (bold italic) for headlines -->
     <!-- DEVELOPER NOTE: Replace with your brand fonts if different -->
@@ -111,7 +111,7 @@
         /* Smooth transitions for themed elements */
         .section, .pillar-card, .comparison__table, .pricing__card,
         .faq__item, .resource-link, .video-demo__wrapper, .sticky-cta,
-        .header, .footer, .btn, .theme-toggle {
+        .header, .btn, .theme-toggle {
             transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         }
 
@@ -288,11 +288,6 @@
             display: flex;
             align-items: center;
             gap: 1rem;
-        }
-
-        .header__logo {
-            width: 120px;
-            height: auto;
         }
 
         /* Theme Toggle Button */
@@ -539,39 +534,13 @@
             background: var(--color-surface-alt);
         }
 
-        /* Placeholder styling - remove when real video added */
-        .video-demo__placeholder {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, var(--color-surface-alt), var(--color-surface));
-            color: var(--color-text-muted);
-            gap: 1rem;
-        }
-
-        .video-demo__placeholder svg {
-            width: 80px;
-            height: 80px;
-            opacity: 0.5;
-        }
-
-        .video-demo__caption {
-            margin-top: 1.5rem;
-            color: var(--color-text-muted);
-            font-size: 1rem;
+        .video-demo__player {
+            border: none;
         }
 
         @media (min-width: 768px) {
             .video-demo {
                 padding: 5rem 2rem 6rem;
-            }
-
-            .video-demo__placeholder svg {
-                width: 100px;
-                height: 100px;
             }
         }
 
@@ -941,40 +910,60 @@
             color: var(--color-text-muted);
         }
 
-        /* Educator testimonial - intentionally set apart as a distinct quote
-           block since it's in Bahasa Melayu while the rest of the page is English */
-        .faq__testimonial {
-            max-width: 800px;
-            margin: 0 auto 3rem;
-            padding: 2rem clamp(1.5rem, 4vw, 3rem);
+        /* ============================================
+           REVIEWS SECTION
+           ============================================ */
+        .reviews__grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* Built to hold 2-3 cards side by side as more reviews are added */
+        @media (min-width: 768px) {
+            .reviews__grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 380px));
+                justify-content: center;
+                max-width: none;
+                gap: 2rem;
+            }
+        }
+
+        .review-card {
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
             background: var(--color-surface);
+            border: 1px solid var(--color-border);
             border-left: 4px solid var(--color-accent);
-            border-radius: 4px;
+            border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
         }
 
-        .faq__testimonial-quote {
+        .review-card__quote {
             font-family: var(--font-headline);
             font-style: italic;
             font-weight: 400;
-            font-size: clamp(1.15rem, 2.2vw, 1.5rem);
+            font-size: clamp(1.05rem, 1.8vw, 1.3rem);
             line-height: 1.5;
             color: var(--color-text-heading);
+            flex-grow: 1;
         }
 
-        .faq__testimonial-quote::before {
+        .review-card__quote::before {
             content: "\201C";
             color: var(--color-accent);
             margin-right: 0.1em;
         }
 
-        .faq__testimonial-quote::after {
+        .review-card__quote::after {
             content: "\201D";
             color: var(--color-accent);
             margin-left: 0.1em;
         }
 
-        .faq__testimonial-cite {
+        .review-card__cite {
             display: block;
             margin-top: 1.25rem;
             font-style: normal;
@@ -983,7 +972,7 @@
             color: var(--color-text-muted);
         }
 
-        .faq__testimonial-cite span {
+        .review-card__cite span {
             color: var(--color-text);
         }
 
@@ -1123,43 +1112,6 @@
             }
         }
 
-        /* ============================================
-           FOOTER
-           ============================================ */
-        .footer {
-            background: var(--color-surface-alt);
-            padding: 3rem 1.5rem;
-            text-align: center;
-        }
-
-        .footer__logo {
-            width: 150px;
-            margin: 0 auto 2rem;
-        }
-
-        .footer__links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer__link {
-            color: var(--color-accent);
-            font-size: 0.875rem;
-            text-decoration: underline;
-        }
-
-        .footer__link:hover {
-            color: var(--color-accent-light);
-        }
-
-        .footer__copyright {
-            font-size: 0.75rem;
-            color: var(--color-text-muted);
-        }
-
         /* Spacer for sticky CTA */
         .sticky-spacer {
             height: 80px;
@@ -1189,7 +1141,6 @@
                 <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
         </button>
-        <img src="Cytron-Logo-LIGHT_BLUE-800x320.png" alt="Cytron Technologies" class="header__logo">
     </header>
 
     <!-- ============================================
@@ -1237,22 +1188,8 @@
             <h2 class="headline headline--lg">See it for yourself.</h2>
 
             <div class="video-demo__wrapper">
-                <!-- DEVELOPER NOTE: Replace placeholder with actual video/GIF -->
-                <div class="video-demo__placeholder">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <circle cx="12" cy="12" r="10"/>
-                        <polygon points="10 8 16 12 10 16 10 8" fill="currentColor" stroke="none"/>
-                    </svg>
-                    <span>GPIO demo video goes here</span>
-                </div>
-                <!-- When video is ready, replace placeholder with:
-                <video class="video-demo__player" autoplay loop muted playsinline>
-                    <source src="gpio-demo.mp4" type="video/mp4">
-                </video>
-                -->
+                <iframe class="video-demo__player" src="https://www.youtube.com/embed/4LG3IQOy_B0?autoplay=1&mute=1" title="Maker ESP32 GPIO demo" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
             </div>
-
-            <p class="video-demo__caption">Watch the GPIO LEDs respond in real time as code runs.</p>
         </div>
     </section>
 
@@ -1381,7 +1318,7 @@
             </div>
 
             <p class="comparison__summary">
-Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tutorials, and local support.
+Same NodeMCU-compatible pin layout — Cytron tutorials, and local support.
             </p>
         </div>
     </section>
@@ -1428,7 +1365,7 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
     <section class="section pricing" id="pricing">
         <div class="container">
             <div class="section-header">
-                <h2 class="headline headline--lg">Launch price — 16 to 30 September.</h2>
+                <h2 class="headline headline--lg">Launch price — 16 to 29 September.</h2>
             </div>
 
             <div class="pricing__card circuit-corner">
@@ -1464,6 +1401,24 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
     </section>
 
     <!-- ============================================
+         REVIEWS SECTION
+         ============================================ -->
+    <section class="section reviews" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="headline headline--lg">What educators and makers are saying.</h2>
+            </div>
+
+            <div class="reviews__grid">
+                <blockquote class="review-card">
+                    <p class="review-card__quote">Maker ESP32 sangat sesuai untuk Projek Akhir pelajar — dari menulis kod, mengawal input/output, hingga menghasilkan prototaip sendiri. Tiada setup rumit, hanya sambung USB-C dan terus explore. Thumbs up untuk Maker ESP32!</p>
+                    <cite class="review-card__cite">— <span>Puan Nur Amalina</span>, Politeknik Ungku Omar</cite>
+                </blockquote>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================
          FAQ SECTION
          ============================================ -->
     <section class="section faq" id="faq">
@@ -1471,11 +1426,6 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
             <div class="section-header">
                 <h2 class="headline headline--lg">Common questions from first-time ESP32 learners.</h2>
             </div>
-
-            <blockquote class="faq__testimonial">
-                <p class="faq__testimonial-quote">Maker ESP32 sangat sesuai untuk Projek Akhir pelajar — dari menulis kod, mengawal input/output, hingga menghasilkan prototaip sendiri. Tiada setup rumit, hanya sambung USB-C dan terus explore. Thumbs up untuk Maker ESP32!</p>
-                <cite class="faq__testimonial-cite">— <span>Puan Nur Amalina</span>, Politeknik Ungku Omar</cite>
-            </blockquote>
 
             <div class="faq__list">
                 <div class="faq__item">
@@ -1495,17 +1445,6 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
                     </button>
                     <div class="faq__answer">
                         <p>Yes, along with ESP-IDF.</p>
-                    </div>
-                </div>
-
-                <div class="faq__item">
-                    <button class="faq__question">
-                        Is the module certified?
-                        <span class="faq__icon">+</span>
-                    </button>
-                    <div class="faq__answer">
-                        <!-- DEVELOPER NOTE: This exact wording must be kept per legal requirements -->
-                        <p>Powered by an ESP32-WROOM-32E wireless module type-approved by SIRIM under Cytron Technologies.</p>
                     </div>
                 </div>
 
@@ -1597,32 +1536,10 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
     <section class="section final-cta">
         <div class="container">
             <h2 class="headline headline--lg">Your first ESP32 board, made easier.</h2>
-            <p class="final-cta__price">20% off during launch — 16 to 30 September.</p>
+            <p class="final-cta__price">20% off during launch — 16 to 29 September.</p>
             <a href="https://my.cytron.io/p-maker-esp32?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" target="_blank" rel="noopener noreferrer" class="btn btn--primary">Get Maker ESP32</a>
         </div>
     </section>
-
-    <!-- ============================================
-         FOOTER
-         ============================================ -->
-    <footer class="footer">
-        <div class="container">
-            <!-- DEVELOPER NOTE: Update logo src -->
-            <img src="Cytron-Logo-LIGHT_BLUE-800x320.png" alt="Cytron Technologies" class="footer__logo">
-
-            <nav class="footer__links">
-                <a href="https://my.cytron.io/tutorial/getting-started-with-maker-esp32?tracking=maker-esp32-t&utm_campaign=makeresptutorial" target="_blank" rel="noopener noreferrer" class="footer__link">Getting Started Guide</a>
-                <a href="https://my.cytron.io/tutorial-search?categories=42&include_content=true&tracking=maker-esp32-t&utm_campaign=makeresptutorial" target="_blank" rel="noopener noreferrer" class="footer__link">Tutorial Library</a>
-                <a href="https://docs.google.com/document/d/1gvGrlrWyXXZk_k-CQ-no0y23ifWEjb_XfbZtomaShDo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="footer__link">Datasheet</a>
-                <a href="https://wa.me/6045480668" target="_blank" rel="noopener noreferrer" class="footer__link">Support</a>
-                <a href="https://www.cytron.io/?tracking=maker-esp32-lp&utm_campaign=landingpagemakeresp" target="_blank" rel="noopener noreferrer" class="footer__link">About Cytron</a>
-            </nav>
-
-            <p class="footer__copyright">
-                &copy; 2026 Cytron Technologies. All rights reserved.
-            </p>
-        </div>
-    </footer>
 
     <!-- Spacer for sticky CTA -->
     <div class="sticky-spacer"></div>
@@ -1645,7 +1562,7 @@ Same NodeMCU-compatible pin layout — plus a SIRIM-approved module, Cytron tuto
         // DEVELOPER NOTE: Update these dates for the launch window
         // Format: Year, Month (0-indexed), Day, Hour, Minute
         const LAUNCH_START = new Date(2026, 8, 16, 0, 0, 0);  // Sep 16, 2026, 00:00
-        const LAUNCH_END = new Date(2026, 8, 30, 23, 59, 59); // Sep 30, 2026, 23:59
+        const LAUNCH_END = new Date(2026, 8, 29, 23, 59, 59); // Sep 29, 2026, 23:59
 
         /* ============================================
            THEME TOGGLE (Light/Dark Mode)
